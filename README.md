@@ -13,12 +13,18 @@ and
 
 ### set this env-vars
 
-- INTERVAL (interval in days to do price-checks)
+#### Config for the Mailer
+
 - SMTP_HOST
 - SMTP_USER
 - SMTP_PASSWORD
 - MAIL_FROM
 - MAIL_TO
+
+#### Config for the watcher
+
+- INTERVAL (interval in days to do price-checks)
+- HARD_LIMIT
 
 ## Contributing
 

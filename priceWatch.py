@@ -17,6 +17,8 @@ SMTP_USER = os.getenv('SMTP_USER', None)
 SMTP_PASSWORD = os.getenv('SMTP_PASSWORD', None)
 MAIL_FROM = os.getenv('MAIL_FROM', None)
 MAIL_TO = os.getenv('MAIL_TO', None)
+TARGET = os.getenv('TARGET', 1)
+HARD_LIMIT = os.getenv('HARD_LIMIT', None)
 
 if SMTP_HOST is None:
     print('EnvVar SMTP_HOST not set')
@@ -39,8 +41,8 @@ msg = EmailMessage()
 header = {"User-Agent":'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'}
 urls = ['https://www.1blu.de/']
 
-target = '1,-'
-hardLimit = 2
+target = TARGET + ',-'
+hardLimit = HARD_LIMIT
 print('target-price is ' + target)
 
 notified = None
@@ -63,7 +65,7 @@ while True:
             content = 'V-Server ist gerade für ' + target + ' verfügbar.'
             print(content)
             notified = datetime.now()
-        elif float(price.replace('-', '0').replace(',', '.')) < hardLimit:
+        elif hardLimit is not None and float(price.replace('-', '0').replace(',', '.')) < hardLimit:
             content = 'Preis ist immer noch kleiner' + str(hardLimit) + '. Preis ist: ' + str(price)
             print(content)
         if content is None:
